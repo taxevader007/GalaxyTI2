@@ -6,17 +6,21 @@ public class Controller {
     private Galaxy[] galaxyMemory;
     private int galaxyCounter; // keeps track of the number of galaxies in the galaxyMemory array
 
+
     public Controller() {
         galaxyMemory = new Galaxy[50];
         galaxyCounter = 0; // inicializates galax counter in 0
     }
 
-    public void registerGalaxy(String galaxyName, double distanceToEarth, String shape) {
-        // Check if the galaxy already exists
+    public String registerGalaxy(String galaxyName, double distanceToEarth, String shape) {
+        // Check if t,//Existshe galaxy already exists
+        String messageResgiterGalaxy = "";
+
         for (int i = 0; i < galaxyCounter; i++) {
             if (galaxyMemory[i] != null && galaxyMemory[i].getGalaxyName().equals(galaxyName)) {
-                System.out.println("The galaxy already exists");
-                return;
+                messageResgiterGalaxy = "The galaxy already exists";
+                
+               
             }
         }
 
@@ -24,10 +28,13 @@ public class Controller {
             Galaxy newGalaxy = new Galaxy(galaxyName, distanceToEarth, shape);
             galaxyMemory[galaxyCounter] = newGalaxy;
             galaxyCounter++;
-            System.out.println("Galaxy added successfully");
+            
+            messageResgiterGalaxy = "Galaxy added successfully";
         } else {
-            System.out.println("The galaxy memory is full");
+            messageResgiterGalaxy = "The galaxy memory is full";
         }
+
+        return messageResgiterGalaxy;
     }
 
     // register blackhole
@@ -116,17 +123,21 @@ public class Controller {
 
     // remove galaxy
 
-    public boolean rmGalaxy(String galaxyName) {
+    public String rmGalaxy(String galaxyName) {
+        String messageRMGalaxy = "";
+
         for (int i = 0; i < galaxyMemory.length; i++) {
             if (galaxyMemory[i] != null) {
                 if (galaxyMemory[i].getGalaxyName().equals(galaxyName)) {
                     galaxyMemory[i] = null;
-                    return true; // Galaxy removed successfully
+                    messageRMGalaxy = "Galaxy removed successfully";
                 }
             }
+            else{
+                messageRMGalaxy = "The galaxy does not exist";
+            }
         }
-        System.out.println("The galaxy does not exist");
-        return false; // Galaxy not found
+        return messageRMGalaxy; // Galaxy not found
 
     }
 

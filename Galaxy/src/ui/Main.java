@@ -86,8 +86,8 @@ public class Main {
 				case 3:// info of a specific galaxy
 
 					System.out.println("Please enter the name of the galaxy to see the info: ");
-					String galaxyName2 = scan.nextLine();
-					Galaxy galaxy = controller.infoGalaxy(galaxyName2);
+					String galaxyNameInfo = scan.nextLine();
+					Galaxy galaxy = controller.infoGalaxy(galaxyNameInfo);
 
 					if (galaxy != null) {
 						System.out.println(galaxy);
@@ -99,8 +99,8 @@ public class Main {
 
 				case 4:// remove galaxy
 					System.out.println("Please enter the name of the galaxy to remove: ");
-					String galaxyName3 = scan.nextLine();
-					if (controller.rmGalaxy(galaxyName3)) {
+					String galaxyNameRemove = scan.nextLine();
+					if (Controller.rmGalaxy(galaxyNameRemove)) {
 						System.out.println("Galaxy removed successfully");
 					} else {
 						System.out.println("Galaxy not found.");
