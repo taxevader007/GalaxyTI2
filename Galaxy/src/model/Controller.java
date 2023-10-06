@@ -137,7 +137,7 @@ public class Controller {
                 messageRMGalaxy = "The galaxy does not exist";
             }
         }
-        return messageRMGalaxy; // Galaxy not found
+        return messageRMGalaxy;
 
     }
 

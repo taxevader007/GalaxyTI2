@@ -97,22 +97,22 @@ public class Main {
 
 					break;
 
-				case 4:// remove galaxy
-					System.out.println("Please enter the name of the galaxy to remove: ");
-					String galaxyNameRemove = scan.nextLine();
-					if (Controller.rmGalaxy(galaxyNameRemove)) {
-						System.out.println("Galaxy removed successfully");
-					} else {
-						System.out.println("Galaxy not found.");
-					}
+					case 4: // remove galaxy
+						System.out.println("Please enter the name of the galaxy to remove: ");
+						String galaxyNameRemove = scan.nextLine();
+						String removed = controller.rmGalaxy(galaxyNameRemove);
+						if (removed.equals("Galaxy removed successfully.")) {
+							System.out.println("Galaxy removed successfully.");
+						} else {
+							System.out.println("Galaxy not found.");
+						}
+						break;
 
-					break;
-
-				case 5:
-					flag = true;
-					System.out.println("exiting the program. ");
-					System.exit(0);
-					break;
+					case 5:
+						flag = true;
+						System.out.println("exiting the program. ");
+						System.exit(0);
+						break;
 
 				default:
 					System.out.print("Please enter a valid option");
