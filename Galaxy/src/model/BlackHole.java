@@ -4,20 +4,23 @@ public class BlackHole{
     private String blackHoleName;
     private double blackHoleMass;
     private double blackHoleDistanceToEarth; 
-    //atributo de la clase photo
-    private double angularMoment;   
-    private double charge;
+    private Photo[] blackHolePhotos; 
+    private boolean angularMoment;   
+    private boolean charge;
     private String blackholeAssociatedGalaxy;
 
-    public BlackHole(String blackHoleName, double blackHoleMass, double blackHoleDistanceToEarth, double angularMoment, double charge, String blackholeAssociatedGalaxy) {
+    public BlackHole(String blackHoleName, double blackHoleMass, double blackHoleDistanceToEarth, boolean angularMoment, boolean charge, String blackholeAssociatedGalaxy, Photo[] blackHolePhotos) {
         this.blackHoleName = blackHoleName;
         this.blackHoleMass = blackHoleMass;
         this.blackHoleDistanceToEarth = blackHoleDistanceToEarth;
         this.angularMoment = angularMoment;
         this.charge = charge;
         this.blackholeAssociatedGalaxy = blackholeAssociatedGalaxy;
+        
+        //5 per blackhole
     }
     
+
     public String getBlackHoleName() {
         return blackHoleName;
     }
@@ -42,19 +45,27 @@ public class BlackHole{
         this.blackHoleDistanceToEarth = blackHoleDistanceToEarth;
     }
 
-    public double getAngularMoment() {
+    public Photo[] getBlackHolePhotos() {
+        return blackHolePhotos;
+    }
+
+    public void setBlackHolePhotos(Photo[] blackHolePhotos) {
+        this.blackHolePhotos = blackHolePhotos;
+    }
+
+    public boolean getAngularMoment() {
         return angularMoment;
     }
 
-    public void setAngularMoment(double angularMoment) {
+    public void setAngularMoment(boolean angularMoment) {
         this.angularMoment = angularMoment;
     }
 
-    public double getCharge() {
+    public boolean getCharge() {
         return charge;
     }
 
-    public void setCharge(double charge) {
+    public void setCharge(boolean charge) {
         this.charge = charge; 
     }
 

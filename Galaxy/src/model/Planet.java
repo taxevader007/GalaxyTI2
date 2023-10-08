@@ -3,12 +3,12 @@ package model;
 public class Planet {
     private String planetName;
     private int planetNumberSatelites;
-    //planetphotos
+    private Photo[] planetphotos;
     private double planetRadio;
     private double planetMass;
     private String planetAssociatedGalaxy;   
 
-    public Planet(String planetName, int planetNumberSatelites, double planetRadio, double planetMass, String planetAssociatedGalaxy) {
+    public Planet(String planetName, int planetNumberSatelites, double planetRadio, double planetMass, String planetAssociatedGalaxy, Photo[] planetphoto) {
         this.planetName = planetName;
         this.planetNumberSatelites = planetNumberSatelites;
         this.planetRadio = planetRadio;
@@ -30,6 +30,14 @@ public class Planet {
 
     public void setPlanetNumberSatelites(int planetNumberSatelites) {
         this.planetNumberSatelites = planetNumberSatelites;
+    }
+
+    public Photo[] getPlanetphotos() {
+        return planetphotos;
+    }
+
+    public void setPlanetphotos(Photo[] planetphotos) {
+        this.planetphotos = planetphotos;
     }
 
     public double getPlanetRadio() {
