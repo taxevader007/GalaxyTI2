@@ -6,6 +6,7 @@ public class Controller {
 
     // This is `the main controller of the program (obaject)
     private Galaxy[] galaxyMemory;
+ 		
     private BlackHole[] blackholeMemory;
     private int galaxyCounter; // keeps track of the number of galaxies in the galaxyMemory array
 
@@ -14,6 +15,12 @@ public class Controller {
         galaxyMemory = new Galaxy[50];
         blackholeMemory = new BlackHole[50];
         galaxyCounter = 0; // inicializates galax counter in 0
+    }
+
+    public static boolean testcases (){
+        new Galaxy("Lechosa",4000000, "ELLIPTICAL");
+
+        return true;
     }
 
     public String registerGalaxy(String galaxyName, double distanceToEarth, String shape) {
@@ -239,6 +246,46 @@ public class Controller {
         }
         return null; // Galaxy not found
     }
+
+    public String[] getGalaxyInfo() {
+        // Retrieve all galaxies from the Controller
+        Galaxy[] galaxies = getinfogalaxy();
+        String[] galaxyInfo = new String[galaxies.length];
+    
+        if (galaxies.length == 0) {
+            galaxyInfo[0] = "No galaxies found.";
+        } else {
+            // Sort the galaxies array based on distance to Earth (from nearest to farthest)
+            for (int i = 0; i < galaxies.length - 1; i++) {
+                int minIndex = i;
+                for (int j = i + 1; j < galaxies.length; j++) {
+                    if (galaxies[j] != null &&
+                            galaxies[i] != null &&
+                            galaxies[j].getDistanceToEarth() < galaxies[i].getDistanceToEarth()) {
+                        minIndex = j;
+                    }
+                }
+    
+                // Swap galaxies[i] and galaxies[minIndex]
+                Galaxy temp = galaxies[i];
+                galaxies[i] = galaxies[minIndex];
+                galaxies[minIndex] = temp;
+            }
+    
+            galaxyInfo[0] = "Galaxies sorted by distance to Earth (from nearest to farthest):";
+            for (int i = 0; i < galaxies.length; i++) {
+                galaxyInfo[i+1] = "Galaxy " + (i + 1);
+                if (galaxies[i] != null) {
+                    galaxyInfo[i+1] += "\nGalaxy Name: " + galaxies[i].getGalaxyName();
+                    galaxyInfo[i+1] += "\nDistance to Earth: " + galaxies[i].getDistanceToEarth();
+                } else {
+                    galaxyInfo[i+1] += "\nThis galaxy has been removed.";
+                }
+            }
+        }
+        return galaxyInfo;
+    }
+
 
     // planetinfo
     public void infoPlanet() {

@@ -1,21 +1,30 @@
 package ui;
 
 import model.Controller;
-import model.Galaxy;
-
 import java.util.Calendar;
 import java.util.Scanner;
 
+
 public class Main {
+	private final Scanner scan = new Scanner(System.in);
+	private final Controller controller;
+
+	public Main() {
+		controller = new Controller();
+	}
+
+
 	public static void main(String[] args) {
-		Scanner scan = new Scanner(System.in);
-		Controller controller = new Controller();
-		menu(scan, controller);
+		Main main = new Main();
+		main.menu();
+
+
+
 		// Create a new Controller object
 
 	}
 
-	public static void menu(Scanner scan, Controller controller) {
+	public void menu() {
 
 		boolean flag = false;
 
@@ -35,40 +44,40 @@ public class Main {
 
 			switch (option) { // create galaxy
 				case 1:
-					createGalaxy(scan, controller);
+					createGalaxy();
 					break;
 
 				case 2:
-					createblackhole(scan, controller);
+					createblackhole();
 					break;
 				
 				case 3:
-					createplanet(scan, controller);
+					createplanet();
 					break;
 
 				case 4:
-					removeplanet(scan, controller);
+					removeplanet();
 					break;
 				
 				case 5:
-					editplanet(scan, controller);
+					editplanet();
 					break;
 
 				case 6:
 					//
-					addPlanetPhoto(scan, controller);
+					addPlanetPhoto();
 					break;
 				
-				case 7:// info of a specific galaxy
-					infoGalaxy(scan, controller);
+				case 7:// info of a 
+					infoGalaxy();
 					break;
 
 				case 8:// info of a specific planet
-					infoGalaxy(scan, controller);
+					infoGalaxy();
 					break;
 
 				case 9:// order a galaxie by distance from earth
-					//orderDistance(scan, controller);
+					//orderDistance();
 					break;
 
 				case 10:// order a planet by density
@@ -115,7 +124,7 @@ public class Main {
 		} // while
 	}// menu
 
-	public static void createGalaxy(Scanner scan, Controller controller) {
+	public void createGalaxy() {
 		System.out.println("Please enter the name of the galaxy: ");
 		String galaxyName = scan.nextLine();
 
@@ -134,7 +143,7 @@ public class Main {
 
 	}
 
-	public static void createblackhole(Scanner scan, Controller controller) {
+	public void createblackhole() {
 		System.out.println("Please enter the name of the black hole: ");
 		String blackholeName = scan.nextLine();
 
@@ -166,7 +175,7 @@ public class Main {
 
 	}
 
-	public static void createplanet(Scanner scan, Controller controller){
+	public void createplanet(){
 		System.out.println("Please enter the name of the galaxy to associate the planet: ");
 		String galaxyName = scan.nextLine();
 
@@ -192,7 +201,7 @@ public class Main {
 
 	}
 
-	public static void removeplanet(Scanner scan, Controller controller){
+	public void removeplanet(){
 		System.out.println("Please enter the name of the galaxy to remove the planet: ");
 		String galaxyName = scan.nextLine();
 
@@ -206,7 +215,7 @@ public class Main {
 
 	}
 
-	public static void editplanet(Scanner scan, Controller controller){
+	public void editplanet(){
 		System.out.println("Please enter the name of the galaxy to edit the planet: ");
 		String galaxyName = scan.nextLine();
 
@@ -235,7 +244,7 @@ public class Main {
 
 	}
 
-	public static void addPlanetPhoto(Scanner scan, Controller controller) {
+	public void addPlanetPhoto() {
 		System.out.println("Please enter the name of the galaxy to add the photo: ");
 		String galaxyName = scan.nextLine();
 
@@ -270,47 +279,19 @@ public class Main {
 	}
 
 
-	public static void showGalaxy(Scanner scan, Controller controller) {
-		// Retrieve all galaxies from the Controller
-		Galaxy[] galaxies = controller.getinfogalaxy();
 
-		if (galaxies.length == 0) {
-			System.out.println("No galaxies found.");
-		} else {
-			// Sort the galaxies array based on distance to Earth (from nearest to farthest)
-			for (int i = 0; i < galaxies.length - 1; i++) {
-				int minIndex = i;
-				for (int j = i + 1; j < galaxies.length; j++) {
-					if (galaxies[j] != null &&
-							galaxies[i] != null &&
-							galaxies[j].getDistanceToEarth() < galaxies[i].getDistanceToEarth()) {
-						minIndex = j;
-					}
-				}
-
-				// Swap galaxies[i] and galaxies[minIndex]
-				Galaxy temp = galaxies[i];
-				galaxies[i] = galaxies[minIndex];
-				galaxies[minIndex] = temp;
-			}
-
-			System.out.println("Galaxies sorted by distance to Earth (from nearest to farthest):");
-			for (int i = 0; i < galaxies.length; i++) {
-				System.out.println("Galaxy " + (i + 1));
-				if (galaxies[i] != null) {
-					System.out.println("Galaxy Name: " + galaxies[i].getGalaxyName());
-					System.out.println("Distance to Earth: " + galaxies[i].getDistanceToEarth());
-				} else {
-					System.out.println("This galaxy has been removed.");
-				}
-			}
+		public static void showGalaxy(String[] args) {
+		Controller controller = new Controller();
+		String[] galaxyInfo = controller.getGalaxyInfo();
+		for (String info : galaxyInfo) {
+			System.out.println(info);
 		}
 	}
-
-	public static void infoGalaxy(Scanner scan, Controller controller) {
+	
+	public String infoGalaxy() {
 		System.out.println("Please enter the name of the galaxy to see the info: ");
 		String galaxyNameInfo = scan.nextLine();
-		Galaxy galaxy = controller.infoGalaxy(galaxyNameInfo);
+		model.Galaxy galaxy = controller.infoGalaxy(galaxyNameInfo);
 
 		if (galaxy != null) {
 			System.out.println(galaxy);
@@ -318,10 +299,11 @@ public class Main {
 			System.out.println("Galaxy not found.");
 		}
 
+		return "";
 	}
 
 	/*
-	public static void removeGalaxy(Scanner scan, Controller controller) {
+	public void removeGalaxy() {
 		System.out.println("Please enter the name of the galaxy to remove: ");
 		String galaxyNameRemove = scan.nextLine();
 		String removed = controller.rmGalaxy(galaxyNameRemove);
