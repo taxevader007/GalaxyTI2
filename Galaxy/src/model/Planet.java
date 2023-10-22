@@ -7,8 +7,10 @@ public class Planet {
     private double planetRadio;
     private double planetMass;
     private String planetAssociatedGalaxy;   
+    private double planetDensity;
 
-    public Planet(String planetName, int planetNumberSatelites, double planetRadio, double planetMass, String planetAssociatedGalaxy, Photo[] planetphoto) {
+    
+    public Planet(String planetName, int planetNumberSatelites, double planetRadio, double planetMass, String planetAssociatedGalaxy, Photo[] planetphoto, double planetDensity) {
         this.planetName = planetName;
         this.planetNumberSatelites = planetNumberSatelites;
         this.planetRadio = planetRadio;
@@ -64,6 +66,13 @@ public class Planet {
         this.planetAssociatedGalaxy = planetAssociatedGalaxy;
     }
 
+    public double getPlanetDensity() {
+        return planetDensity;
+    }
+
+    public void setPlanetDensity(double planetDensity) {
+        this.planetDensity = planetDensity;
+    }
 
 
     

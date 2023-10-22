@@ -16,7 +16,15 @@ public class BlackHole{
         this.angularMoment = angularMoment;
         this.charge = charge;
         this.blackholeAssociatedGalaxy = blackholeAssociatedGalaxy;
-        
+        //5 per blackhole
+    }
+        public BlackHole(String blackHoleName, double blackHoleMass, double blackHoleDistanceToEarth, boolean angularMoment, boolean charge) {
+        this.blackHoleName = blackHoleName;
+        this.blackHoleMass = blackHoleMass;
+        this.blackHoleDistanceToEarth = blackHoleDistanceToEarth;
+        this.angularMoment = angularMoment;
+        this.charge = charge;
+   
         //5 per blackhole
     }
     

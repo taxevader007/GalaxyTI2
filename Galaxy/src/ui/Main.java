@@ -1,10 +1,16 @@
 package ui;
 
 import model.Controller;
+
 import java.util.Calendar;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
+/**
+ * The Main class is a Java program that serves as a menu-driven interface for creating and managing
+ * galaxies, black holes, and planets.
+ */
 public class Main {
 	private final Scanner scan = new Scanner(System.in);
 	private final Controller controller;
@@ -16,7 +22,10 @@ public class Main {
 
 	public static void main(String[] args) {
 		Main main = new Main();
+
 		main.menu();
+
+
 
 
 
@@ -24,6 +33,10 @@ public class Main {
 
 	}
 
+	/**
+	 * The menu function displays a menu of options and allows the user to perform various actions based
+	 * on their selection.
+	 */
 	public void menu() {
 
 		boolean flag = false;
@@ -35,8 +48,7 @@ public class Main {
 					+ "6. Add a photo to a planet\n" + "7. Info of a specific galaxy\n"
 					+ "8. Info of a specific planet\n" + "9. Order a galaxy by distance from earth\n"
 					+ "10. Order a planet by density\n" + "11. Name black holes with theirs galaxy name\n"
-					+ "12. Telescope with more photos\n" + "13. Test cases\n" + "14. Add a photo to a black hole\n"
-					+ "15. Add a photo to a galaxy\n" + "16. Exit the program\n");
+					+ "12. Telescope with more photos\n" + "13. Use test cases\n" + "14. Exit the program\n");
 
 			int option = scan.nextInt();
 
@@ -68,28 +80,28 @@ public class Main {
 					addPlanetPhoto();
 					break;
 				
-				case 7:// info of a 
+				case 7:// info of a galaxy
 					infoGalaxy();
 					break;
 
 				case 8:// info of a specific planet
-					infoGalaxy();
+					infoPlanet();
 					break;
 
 				case 9:// order a galaxie by distance from earth
-					//orderDistance();
+					orderDistance();
 					break;
 
 				case 10:// order a planet by density
-					//planetwithmoreDensity(scan, controller);
+					planetwithmoreDensity();
 					break;
 
 				case 11:// nameblackholes with theirs galaxy name
-					//namesBlackholeGalaxy(scan, controller);
+					namesBlackholeGalaxy();
 					break;	
 				
-				case 12:
-					//telescopeWithmorePhotos(scan, controller);
+				case 12://
+					controller.telescopeWithmorePhotos(null);
 					break;
 
 				case 13:
@@ -97,14 +109,6 @@ public class Main {
 					break;
 
 				case 14:
-					//addBlackholePhoto(scan, controller);
-					break;
-				
-				case 15: 
-					//addGalaxyPhoto(scan, controller);
-					break;
-
-				case 16:
 					flag = true;
 					System.out.println("exiting the program. ");
 					System.exit(0);
@@ -112,7 +116,7 @@ public class Main {
 					break;
 
 				/* 
-				case 17: // remove galaxy
+				case 15: // remove galaxy
 					removeGalaxy(scan, controller);
 					break;
 				*/
@@ -124,6 +128,10 @@ public class Main {
 		} // while
 	}// menu
 
+	/**
+	 * The function "createGalaxy" prompts the user to enter the name, distance to Earth, and shape of a
+	 * galaxy, and then adds the galaxy to a controller object.
+	 */
 	public void createGalaxy() {
 		System.out.println("Please enter the name of the galaxy: ");
 		String galaxyName = scan.nextLine();
@@ -136,13 +144,21 @@ public class Main {
 				
 		String shape = scan.nextLine();
 
-		// Use the method from the Controller to add the galaxy
-		controller.registerGalaxy(galaxyName, distanceToEarth, shape);
+		addGalaxyPhoto();
 
-		System.out.println("Galaxy added successfully");
+		// Use the method from the Controller to add the galaxy
+		//controller.registerGalaxy(galaxyName, distanceToEarth, shape);
+
+		System.out.println(controller.add(galaxyName, distanceToEarth, shape));
+
+		//System.out.println("Galaxy added successfully");
 
 	}
 
+	/**
+	 * The function "createblackhole" prompts the user to enter various properties of a black hole, adds a
+	 * photo of the black hole, and then registers the black hole using a controller method.
+	 */
 	public void createblackhole() {
 		System.out.println("Please enter the name of the black hole: ");
 		String blackholeName = scan.nextLine();
@@ -167,6 +183,8 @@ public class Main {
 
 		System.out.println("Please enter the charge of the black hole (true or false)");
 		boolean charge = scan.nextBoolean();
+		
+		addBlackHolePhoto();
 
 		// Use the method from the Controller to add the black hole
 		controller.registerBlackHole(blackholeName, mass, density, size, galaxyName,angularMoment, charge);
@@ -175,6 +193,10 @@ public class Main {
 
 	}
 
+	/**
+	 * The function "createplanet" prompts the user to enter information about a planet and then adds it
+	 * to a controller object.
+	 */
 	public void createplanet(){
 		System.out.println("Please enter the name of the galaxy to associate the planet: ");
 		String galaxyName = scan.nextLine();
@@ -201,6 +223,9 @@ public class Main {
 
 	}
 
+	/**
+	 * The function removes a planet from a specified galaxy.
+	 */
 	public void removeplanet(){
 		System.out.println("Please enter the name of the galaxy to remove the planet: ");
 		String galaxyName = scan.nextLine();
@@ -215,6 +240,10 @@ public class Main {
 
 	}
 
+	/**
+	 * The function "editplanet" prompts the user to enter the name of a galaxy and a planet, and then
+	 * allows the user to edit the name, number of satellites, radius, and mass of the planet.
+	 */
 	public void editplanet(){
 		System.out.println("Please enter the name of the galaxy to edit the planet: ");
 		String galaxyName = scan.nextLine();
@@ -244,6 +273,10 @@ public class Main {
 
 	}
 
+	/**
+	 * The function prompts the user to enter information about a planet photo and then adds it to the
+	 * system.
+	 */
 	public void addPlanetPhoto() {
 		System.out.println("Please enter the name of the galaxy to add the photo: ");
 		String galaxyName = scan.nextLine();
@@ -255,16 +288,54 @@ public class Main {
 		String photoURL = scan.nextLine();
 
 		System.out.println("Please enter the telescope that take the photo: ");
+		String telescope = scan.nextLine();
 
-		System.out.println("Please enter the photo creation day: ");
-		int photoCreationDay = scan.nextInt();
-		scan.nextLine();
+		System.out.println("Please enter the photo creation year (in integers pls) : ");
+		int photoCreationYear = scan.nextInt();
 
-		System.out.println("Please enter the photo creation month: ");
+		System.out.println("Please enter the photo creation month (in integers pls) : ");
 		int photoCreationMonth = scan.nextInt();
 		scan.nextLine();
 
-		System.out.println("Please enter the photo creation year: ");
+		System.out.println("Please enter the photo creation day (in integers pls): ");
+		int photoCreationDay = scan.nextInt();
+		scan.nextLine();
+		
+		scan.nextLine();
+
+		// Create a Calendar object with the given date
+		Calendar photoCreationDate = Calendar.getInstance();
+		photoCreationDate.set(photoCreationYear, photoCreationMonth - 1, photoCreationDay);
+
+		// Use the method from the Controller to add the photo
+		controller.registerPlanetPhoto(galaxyName, planetName, photoURL, telescope, photoCreationDate);
+
+		System.out.println("Photo added successfully");
+	}
+
+	/**
+	 * The function `addBlackHolePhoto` prompts the user to enter information about a black hole photo and
+	 * then adds it to the system using a controller method.
+	 */
+	public void addBlackHolePhoto () {
+		System.out.println("Please enter the name of the black hole to add the photo: ");
+		String blackHoleName = scan.nextLine();
+
+		System.out.println("Please enter the photo URL ");
+		String photoURL = scan.nextLine();
+
+		System.out.println("Please enter the telescope that take the photo: ");
+		String telescope = scan.nextLine();
+
+		System.out.println("Please enter the photo creation day (in integers pls): ");
+		int photoCreationDay = scan.nextInt();
+		scan.nextLine();
+
+		System.out.println("Please enter the photo creation month (in integers pls) : ");
+		int photoCreationMonth = scan.nextInt();
+		scan.nextLine();
+
+		System.out.println("Please enter the photo creation year (in integers pls) : ");
 		int photoCreationYear = scan.nextInt();
 		scan.nextLine();
 
@@ -273,14 +344,58 @@ public class Main {
 		photoCreationDate.set(photoCreationYear, photoCreationMonth - 1, photoCreationDay);
 
 		// Use the method from the Controller to add the photo
-		controller.registerPlanetPhoto(galaxyName, planetName, photoURL, photoCreationDate);
+		controller.registeBlackHolePhoto(blackHoleName, photoURL, telescope, photoCreationDate);
 
 		System.out.println("Photo added successfully");
+
+
+	}
+
+	/**
+	 * The function `addGalaxyPhoto` prompts the user to enter information about a galaxy photo and then
+	 * adds it to the system using a controller method.
+	 */
+	public void addGalaxyPhoto () {
+
+		System.out.println("Please enter the name of the galaxy to add the photo: ");
+		String galaxyName = scan.nextLine();
+
+		System.out.println("Please enter the photo URL ");
+		String photoURL = scan.nextLine();
+
+		System.out.println("Please enter the telescope that take the photo: ");
+		String telescope = scan.nextLine();
+
+		System.out.println("Please enter the photo creation day (in integers pls): ");
+		int photoCreationDay = scan.nextInt();
+		scan.nextLine();
+
+		System.out.println("Please enter the photo creation month (in integers pls) : ");
+		int photoCreationMonth = scan.nextInt();
+		scan.nextLine();
+
+		System.out.println("Please enter the photo creation year (in integers pls) : ");
+		int photoCreationYear = scan.nextInt();
+		scan.nextLine();
+
+		// Create a Calendar object with the given date
+		Calendar photoCreationDate = Calendar.getInstance();
+		photoCreationDate.set(photoCreationYear, photoCreationMonth - 1, photoCreationDay);
+
+		// Use the method from the Controller to add the photo
+		controller.registerGalaxyPhoto(galaxyName, photoURL, telescope , photoCreationDate);
+
+		System.out.println("Photo added successfully");
+
+
 	}
 
 
 
-		public static void showGalaxy(String[] args) {
+	/**
+	 * The function "showGalaxy" retrieves information about a galaxy and prints it to the console.
+	 */
+	public static void showGalaxy(String[] args) {
 		Controller controller = new Controller();
 		String[] galaxyInfo = controller.getGalaxyInfo();
 		for (String info : galaxyInfo) {
@@ -288,6 +403,12 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * The function prompts the user to enter the name of a galaxy, retrieves the information of the
+	 * galaxy from the controller, and prints it out.
+	 * 
+	 * @return An empty string is being returned.
+	 */
 	public String infoGalaxy() {
 		System.out.println("Please enter the name of the galaxy to see the info: ");
 		String galaxyNameInfo = scan.nextLine();
@@ -301,6 +422,62 @@ public class Main {
 
 		return "";
 	}
+
+	/**
+	 * The function prompts the user to enter the name of a galaxy and a planet, and then retrieves and
+	 * displays information about that planet.
+	 * 
+	 * @return The method is returning an empty string.
+	 */
+	public String infoPlanet() {
+		System.out.println("Please enter the name of the galaxy to see the info: ");
+		String galaxyNameInfo = scan.nextLine();
+
+		System.out.println("Please enter the name of the planet to see the info: ");
+		String planetNameInfo = scan.nextLine();
+
+		model.Planet planet = controller.infoPlanet(galaxyNameInfo, planetNameInfo);
+
+		if (planet != null) {
+			System.out.println(planet);
+		} else {
+			System.out.println("Planet not found.");
+		}
+
+		return "";
+	}
+
+	/**
+	 * The function "orderDistance" prints the result of calling the "orderDistance" method on the
+	 * "controller" object.
+	 */
+	public void orderDistance() {
+		System.out.println(controller.orderDistance());
+	
+	}
+
+	/**
+	 * The function "planetwithmoreDensity" prints the name of the planet with the highest density.
+	 */
+	public void planetwithmoreDensity() {
+
+		System.out.println(controller.planetwithmoreDensity());
+	}
+
+	/**
+	 * The function prints the names of blackholes and their corresponding galaxies.
+	 */
+	public void namesBlackholeGalaxy() {
+		//names of the blackhole name type and their galaxy
+		System.out.println(controller.namesBlackholeGalaxy());
+	}
+
+	/**
+	 * The function "telescopeWithmorePhotos" prints the result of a method call to
+	 * "controller.telescopeWithmorePhotos()".
+	 */
+
+
 
 	/*
 	public void removeGalaxy() {

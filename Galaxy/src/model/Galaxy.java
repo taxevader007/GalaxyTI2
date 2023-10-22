@@ -7,6 +7,7 @@ public class Galaxy {
     private BlackHole[] galaxyBlackHoles;       
     private Planet[] galaxyPlanets;
     private Photo[] galaxyPhotos;
+    private int blackholecounter;
  
 
     public Galaxy(String galaxyName, double distanceToEarth, String shape) {
@@ -15,6 +16,7 @@ public class Galaxy {
         this.shape = shape;
         galaxyBlackHoles = new BlackHole[50];
         galaxyPlanets = new Planet[50];
+        this.blackholecounter = 0;
         
         if (galaxyPhotos != null) {
             this.galaxyPhotos = new Photo[30];
@@ -24,6 +26,51 @@ public class Galaxy {
             }
         }
     }
+
+    //TO-DO: Metodo add blackcon validaciones
+    public String addBlackHole(String blackholeName, double mass, double density, double size, boolean charge, boolean rotation){
+        String msg = "Not done";
+        if(freeName(blackholeName)){
+            BlackHole newBlackHole = new BlackHole( blackholeName,  mass,  density,  charge,  rotation);
+            galaxyBlackHoles[blackholecounter] = newBlackHole;
+            blackholecounter ++;
+            msg = "Done";
+
+        }
+
+        
+
+    
+        return msg;
+
+
+    }
+
+    public boolean freeName(String name){
+        boolean freeName = true;
+        for (int i = 0; i < blackholecounter; i++) {
+            if (galaxyBlackHoles[i].getBlackHoleName().equals(name)) {
+                freeName = false;
+            }
+        }
+        return freeName;
+
+    }
+
+    public int getBlackHoleIndexByName(String name){
+        int index = -1;
+        
+        for(int i = 0; i < blackholecounter ;i++){
+            if(galaxyBlackHoles[index].getBlackHoleName().equalsIgnoreCase(name)){
+                index = i;
+            }
+
+        }
+
+        return index;
+    }
+
+
 
     // Getter and setter methods for galaxyName
     public String getGalaxyName() {
